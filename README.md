@@ -27,6 +27,7 @@ Following keyboards are supported.
 - [planck](https://github.com/qmk/qmk_firmware/tree/master/keyboards/planck) (layout: `default`(=`grid`), `mit`)
 - [sofle](https://github.com/qmk/qmk_firmware/tree/master/keyboards/sofle)
 - [sweet16](https://github.com/qmk/qmk_firmware/tree/master/keyboards/1upkeyboards/sweet16)
+- [dactyl_manuform5x7](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/5x7)
 
 ## Install
 
