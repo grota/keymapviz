@@ -1,4 +1,3 @@
-
 # Keymapviz
 
 [![Python Version](https://img.shields.io/badge/Python-3.x-blue.svg)](PythonVersion)
@@ -9,26 +8,30 @@ Keymapviz can convert keymap.c in [qmk_firmware](https://github.com/qmk/qmk_firm
 Following keyboards are supported.
 
 - [crkbd](https://github.com/qmk/qmk_firmware/tree/master/keyboards/crkbd)
+- [dactyl_manuform5x6](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/5x6)
+- [dactyl_manuform6x6](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/6x6)
 - [ergo42](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ergo42)
-- [ergodash](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ergodash)
+- [ergodash](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ergodash) (layout: `default`, `2u_inner`)
 - [ergodone](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ergodone)(ergodox)
 - [ergodox_ez](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ergodox_ez)(ergodox)
 - [fortitude60](https://github.com/qmk/qmk_firmware/tree/master/keyboards/fortitude60)
 - [helix](https://github.com/qmk/qmk_firmware/tree/master/keyboards/helix)
-- [kaishi65](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbdclack/kaishi65)  
+- [id75](https://github.com/qmk/qmk_firmware/tree/master/keyboards/idobao/id75)
+- [kaishi65](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbdclack/kaishi65)
 - [kinesis](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kinesis)
 - [kyria](https://github.com/qmk/qmk_firmware/tree/master/keyboards/splitkb/kyria)
 - [lets_split](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lets_split)
 - [lily58](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58)
 - [mint60](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mint60)
-- [sweet16](https://github.com/qmk/qmk_firmware/tree/master/keyboards/1upkeyboards/sweet16)
-- [dactyl_manuform5x6](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/5x6)
-- [sofle](https://github.com/qmk/qmk_firmware/tree/master/keyboards/sofle)
 - [moonlander](https://github.com/qmk/qmk_firmware/tree/master/keyboards/moonlander)
+- [planck](https://github.com/qmk/qmk_firmware/tree/master/keyboards/planck) (layout: `default`(=`grid`), `mit`)
+- [sofle](https://github.com/qmk/qmk_firmware/tree/master/keyboards/sofle)
+- [sweet16](https://github.com/qmk/qmk_firmware/tree/master/keyboards/1upkeyboards/sweet16)
+- [dactyl_manuform5x7](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/5x7)
 
 ## Install
 
-Keymapviz works with ***Python3***.
+Keymapviz works with **_Python3_**.
 
 ```sh
 $ pip3 install keymapviz
@@ -36,7 +39,7 @@ $ pip3 install keymapviz
 
 ## Usage
 
-Output ascii art.
+### Output ascii art
 
 ```sh
 $ keymapviz qmk_firmware/keyboards/ergodox_ez/keymaps/default/keymap.c
@@ -110,22 +113,26 @@ $ keymapviz qmk_firmware/keyboards/ergodox_ez/keymaps/default/keymap.c
  */
 ```
 
-Legend replacements.
+### Legend replacements
+
 A config file containing legend replacements can be provided to change the legends to your liking. It should have a section named 'legends' and e.g. look like:
+
 ```
 [legends]
 KC_BLSLS=\
 KC_QUOT='
 ```
+
 It can then be provided on the commandline like:
+
 ```
 $ keymapviz qmk_firmware/keyboards/lets_split/keymaps/default/keymap.c -c /path/to/config.properties
 ```
+
 An example file is provided in the root of this project, named `config.properties`.
 
 Output json file.
 This json file can be used in [http://www.keyboard-layout-editor.com/](http://www.keyboard-layout-editor.com/).
-
 
 ```sh
 $ keymapviz qmk_firmware/keyboards/lets_split/keymaps/default/keymap.c -t json -o 'lets_split{}.json'
@@ -133,11 +140,12 @@ $ ls lets_split*.json
 lets_split0.json  lets_split1.json  lets_split2.json  lets_split3.json  lets_split4.json  lets_split5.json
 ```
 
-Output fancy ascii art.
+### Output fancy ascii art
+
 Uses unicode symbols for drawing the box outlines.
 
 ```sh
-$ keymapviz  -t fancy ~/qmk_firmware/keyboards/kbdclack/kaishi65/keymaps/default/keymap.c
+$ keymapviz -t fancy qmk_firmware/keyboards/kbdclack/kaishi65/keymaps/default/keymap.c
 
 /*┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬────┐
  *│ES │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ MI│ EQ│  BS   │ GR │
@@ -168,11 +176,17 @@ $ keymapviz  -t fancy ~/qmk_firmware/keyboards/kbdclack/kaishi65/keymaps/default
  */
 ```
 
-Replace ascii-art in keymap.c. (Generate backup as keymap.c.bac)
+### Replace ascii-art in keymap.c
+
+Generate backup as keymap.c.bac
 
 ```sh
 $ keymapviz -r keymap.c
 ```
+
+## Contributing
+
+Please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 

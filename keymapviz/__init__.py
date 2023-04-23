@@ -21,8 +21,12 @@ import keymapviz.keyboards.kyria
 import keymapviz.keyboards.lily58
 import keymapviz.keyboards.sweet16
 import keymapviz.keyboards.dactyl_manuform5x6
+import keymapviz.keyboards.dactyl_manuform5x7
 import keymapviz.keyboards.sofle
 import keymapviz.keyboards.moonlander
+import keymapviz.keyboards.planck
+import keymapviz.keyboards.dactyl_manuform6x6
+import keymapviz.keyboards.id75
 
 
 KEYBOARDS = {
@@ -42,16 +46,21 @@ KEYBOARDS = {
     'kyria': keymapviz.keyboards.kyria,
     'sweet16': keymapviz.keyboards.sweet16,
     'dactyl_manuform5x6': keymapviz.keyboards.dactyl_manuform5x6,
+    'dactyl_manuform5x7': keymapviz.keyboards.dactyl_manuform5x7,
     'sofle': keymapviz.keyboards.sofle,
     'moonlander': keymapviz.keyboards.moonlander,
+    'planck': keymapviz.keyboards.planck,
+    'dactyl_manuform6x6': keymapviz.keyboards.dactyl_manuform6x6,
+    'id75': keymapviz.keyboards.id75,
 }
 
 
 class Keymapviz():
-    def __init__(self, keyboard, keymap_c, legends = None):
+    def __init__(self, keyboard, keymap_c, layout = None, legends = None):
         self.__keymap_c = keymap_c.read()
         self.keyboard = KEYBOARDS[keyboard]
         self.keymaps = self.__parse_keymap_c()
+        self.layout = layout if layout else 'default'
         self.legends = legends if legends else {}
 
 
@@ -106,13 +115,22 @@ class Keymapviz():
         self.__ascii_art = [aa.format(*self.__legends(_)) for _ in self.keymaps]
         return self.__ascii_art
 
-    def ascii_art(self):
-        return self.__get_final_ascii_art(self.keyboard.ascii_art)
 
+    def __get_layout(self, format, layout):
+        try:
+            return format[layout]
+        except KeyError:
+            print('The keyboard dose not have the layout `{}`.'.format(layout), file=sys.stderr)
+            sys.exit(1)
+
+    def ascii_art(self):
+        aa = self.__get_layout(self.keyboard.ascii_art, self.layout)
+        return self.__get_final_ascii_art(aa)
 
     def layout_editor_json(self):
         path_ = os.path.dirname(os.path.abspath(__file__))
-        with open(os.path.join(path_, self.keyboard.layout_editor_json)) as f:
+        json_file = self.__get_layout(self.keyboard.layout_editor_json, self.layout)
+        with open(os.path.join(path_, json_file)) as f:
             json_ = json.load(f)
         return [self.__json_format(json_, _) for _ in self.keymaps]
 
@@ -151,8 +169,9 @@ class Keymapviz():
     def fancy_art(self):
         if hasattr(self.keyboard, 'fancy_ascii_art'):
             # There already exists a man-made fancy ascii art for this keyboard.
-            return self.__get_final_ascii_art(self.keyboard.fancy_ascii_art)
-        aa = self.keyboard.ascii_art
+            faa = self.__get_layout(self.keyboard.fancy_ascii_art, self.layout)
+            return self.__get_final_ascii_art(faa)
+        aa = self.__get_layout(self.keyboard.ascii_art, self.layout)
         keymapviz_signature_pattern = r'[A-Za-z ]*\[keymapviz\].*\*/\s*$'
         # If the keymapviz signature is adjacent to certain outline characters,
         # self.__get_box_drawing will incorrectly interpret the characters composing the signature
